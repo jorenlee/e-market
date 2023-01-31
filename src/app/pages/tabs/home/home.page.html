@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar mode="md">
+    <ion-title color="dark">
+      <span>Home</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="isLoading"><ion-skeleton-text animated style="height: 25vh;"></ion-skeleton-text></div>
+  <app-loading-shops *ngIf="isLoading"></app-loading-shops>
+  
+  
+  <app-banner *ngIf="!isLoading" [bannerImages]="banners"></app-banner>
+
+  <ion-list *ngIf="!isLoading">
+    <ion-list-header class="ion-margin-bottom">
+      <ion-label>
+        <h4>SHOPS</h4>
+        <p>Discover unique products</p>
+      </ion-label>
+    </ion-list-header>
+    <ion-item-group *ngIf="shops?.length > 0">
+      <app-emarket 
+        *ngFor="let shop of shops" 
+        [shop]="shop"
+        [routerLink]="['/', 'tabs', 'shop', shop.uid]">{{shop}}</app-emarket>
+    </ion-item-group>
+  </ion-list>
+
+</ion-content>

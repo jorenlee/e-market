@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Admin Control Panel</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="logout()">
+        <ion-icon name="power-outline" color="white" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngFor="let key of keys">
+    <ion-card *ngIf="obj[key]['status'] == '1'">
+        <ion-card-header>
+            <ion-card-title>{{obj[key].shopName}}</ion-card-title>
+            <ion-card-subtitle>{{obj[key].shopDescription}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <ion-item lines="none">
+                    <ion-thumbnail slot="start">
+                        <img alt="Silhouette of mountains" [src]="obj[key].imgPath" />
+                    </ion-thumbnail>
+                    <ion-label style="font-size:14px;" slot="start">Shop ID<br /><b>{{key}}</b></ion-label>
+                    <ion-label style="font-size:14px;" slot="end">Status<br /><b style="color:green;">Active</b></ion-label>
+                </ion-item>
+                <ion-button (click)="goto('/shop-details',obj[key],key)" size="small">View</ion-button>
+                <ion-button *ngIf="token.type == 'admin'" (click)="goto('/add-shop',obj[key],key)" size="small">Edit</ion-button>
+
+                <ion-button *ngIf="token.type == 'admin'" (click)="removeShop(obj[key],key)" size="small">Delete</ion-button>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+</div>
+<ion-fab *ngIf="token.type == 'admin'" (click)="goto('/add-shop')" slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+</ion-fab>
+
+
+  <ion-button class="ion-margin" expand="block" color="primary" routerLink="/admin/create-banner">Create Banner</ion-button>
+</ion-content>

@@ -1,0 +1,23 @@
+ion-toolbar {
+    --background: transparent;
+    --ion-color-base: transparent !important;
+}
+
+form{
+    margin-top: 5vh;
+}
+
+ion-item {
+    align-items: center;
+    ion-button {
+        span {
+            color: var(--ion-color-primary);
+        }
+    }
+    ion-label {
+        span {
+            font-size: 0.8rem;
+        }
+    }
+
+}

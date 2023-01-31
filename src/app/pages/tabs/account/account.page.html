@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>My Account</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="logout()">
+        <ion-icon name="power-outline" color="white" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="isLoading" class="ion-text-center alignSpinner">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+
+  <!-- User Info -->
+  <ng-container *ngIf="!isLoading">
+    <ion-list class="borderBottom">
+      <ion-item lines="full">
+        <ion-icon name="person-circle-outline" class="person"></ion-icon>
+        <ion-button slot="end" fill="clear" (click)="editProfile()">EDIT</ion-button>
+        <ion-label>
+          <ion-text class="ion-text-uppercase"><h4>{{profile?.name}}</h4></ion-text>
+          <p>{{profile?.phone}} | {{profile?.email}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full" detail="true" [routerLink]="['/', 'tabs', 'address']">
+        <ion-icon name="home-outline" slot="start" color="dark"></ion-icon>
+        <h5>Manage Addresses</h5>
+      </ion-item>
+
+      <ion-item lines="none" routerLink="/sellerpage">
+        <!-- <ion-icon name="shirt-outline" slot="start"></ion-icon> -->
+        <!-- <mat-icon></mat-icon> -->
+        <ion-thumbnail slot="start" class="store">
+          <img src="assets/imgs/shop.png">
+        </ion-thumbnail>
+        <p>Start Selling</p>
+        <ion-label slot="end">
+          <p class="free">Free registration</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none" routerLink="/sellerpage/user-shopboard">
+        <ion-icon name="shirt-outline" slot="start"></ion-icon>       
+        <p>My Shop</p>
+      </ion-item>
+
+    </ion-list>
+  
+    
+
+    <ion-list>
+      <ion-list-header>
+        <ion-label color="primary">My Purchases</ion-label>
+      </ion-list-header>
+      <ion-text class="ion-text-center" *ngIf="!orders || orders?.length == 0">
+        <p>No Orders Placed Yet</p>
+      </ion-text>
+      
+      <!-- past order section -->
+      <app-orders 
+        *ngFor="let order of orders" 
+        [order]="order"
+        (reorder)="reorder($event)"
+        (help)="getHelp($event)">
+      </app-orders>
+    </ion-list>
+  </ng-container>
+
+</ion-content>

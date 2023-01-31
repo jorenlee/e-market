@@ -1,0 +1,28 @@
+ion-item {
+    font-size: 0.8rem;
+    ion-thumbnail {
+        height: 16vh;
+        width: 30vw;
+        // aspect-ratio: 16 / 9;
+        img {
+            border-radius: 5px;
+            height: 100%;
+            width: 100%;
+            
+        }
+    }
+    h4 {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+}
+
+
+.pStyle {
+    padding-bottom: 0.5vh;
+    font-size: 0.82rem !important;
+}
+
+ion-card{
+    border-bottom: 1px solid black;
+}

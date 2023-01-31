@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar
+      animated="true"
+      debounce="800"
+      #searchInput
+      (ionChange)="onSearchChange($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <app-loading-shops *ngIf="isLoading"></app-loading-shops>
+
+  <app-empty-screen *ngIf="!isLoading && (shops?.length == 0 || query?.length == 0)" [model]="model"></app-empty-screen>
+
+  <ion-list *ngIf="!isLoading && shops.length > 0">
+    <ion-list-header>
+      <ion-label>
+        <h4>Search results for "{{query}}"</h4>
+      </ion-label>
+    </ion-list-header>
+    <app-emarket 
+      *ngFor="let shop of shops"
+      [shop]="shop"
+      [routerLink]="['/', 'tabs', 'shop', shop.uid]"></app-emarket>
+  </ion-list>
+
+</ion-content>

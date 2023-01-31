@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>DashBoard</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/account"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list-header class="ion-margin-bottom">
+        <ion-label>
+            <h4>My Shop</h4>
+        </ion-label>
+    </ion-list-header>
+    <ion-item-group>
+        <app-user-shopcomponents *ngFor="let shop of shops" [shop]="shop" [routerLink]="['/', 'tabs', 'shop', shop.uid]">{{shop}}>
+        </app-user-shopcomponents>
+    </ion-item-group>
+
+
+
+    <ion-button *ngIf="shops.length > 0" class="ion-margin" expand="block" color="primary" routerLink="/sellerpage/add-product">Add Product</ion-button>
+
+
+</ion-content>

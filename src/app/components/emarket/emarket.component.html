@@ -1,0 +1,20 @@
+<ion-card>
+  <ion-item lines="none">
+  <ion-thumbnail slot="start">
+    <img [src]="shop?.cover ? shop.cover : ''" />
+  </ion-thumbnail>
+  <ion-label>
+    <h4>{{ shop?.shop_name }}</h4>
+    <ion-text color="medium">
+      <p class="pStyle">
+        {{ shop?.description }}
+      </p>
+    </ion-text>
+    <!-- <p class="pStyle">
+      <ion-icon name="people-outline"></ion-icon>
+      Followers
+    </p> -->
+
+  </ion-label>
+</ion-item>
+</ion-card>

@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "ecom-214dc"
+  },
+  "targets": {
+    "ecom-214dc": {
+      "hosting": {
+        "app": [
+          "ecom-214dc"
+        ]
+      }
+    }
+  }
+}

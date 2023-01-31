@@ -1,0 +1,80 @@
+<ion-content fullscreen="true">
+
+  <ion-toolbar slot="fixed">
+    <ion-buttons slot="start" mode="md">
+      <ion-back-button defaultHref="/tabs/address"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <div *ngIf="isLoading" class="ion-text-center alignSpinner">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+
+  <form [formGroup]="form" *ngIf="!isLoading">
+    <ion-list>
+      <ion-item lines="none">
+        <ion-icon name="location-outline" color="dark"></ion-icon>
+        <ion-label>{{location?.title}}</ion-label>
+      </ion-item>
+      
+      <ion-item-group>
+        <ion-item>
+          <ion-label color="medium" position="floating">
+           <span>Street Name, Building, House No.</span>
+          </ion-label>
+          <ion-input type="text" autocomplete autocorrect formControlName="house"></ion-input>
+          <ion-icon 
+            name="checkmark-outline" 
+            slot="end" 
+            color="primary" 
+            *ngIf="form.get('house').valid">
+          </ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label color="medium" position="floating">
+           <span>Province, City, Barangay</span>
+          </ion-label>
+          <ion-input type="text" autocomplete autocorrect formControlName="landmark"></ion-input>
+          <ion-icon 
+            name="checkmark-outline" 
+            slot="end" 
+            color="primary" 
+            *ngIf="form.get('landmark').valid">
+          </ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label color="medium" position="floating">
+           <span>Label As: (Work/Home)</span>
+          </ion-label>
+          <ion-input type="text" autocomplete autocorrect formControlName="title"></ion-input>
+          <ion-icon 
+            name="checkmark-outline" 
+            slot="end" 
+            color="primary" 
+            *ngIf="form.get('title').valid">
+          </ion-icon>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+
+  </form>
+
+</ion-content>
+<ion-footer>
+  <div class="ion-padding-horizontal">
+    <ion-button 
+      *ngIf="!isSubmitted"
+      expand="block" 
+      type="submit" 
+      color="primary"
+      [disabled]="!form?.valid"
+      (click)="onSubmit()">SAVE & PROCEED
+    </ion-button>
+    <ion-button 
+      *ngIf="isSubmitted"
+      expand="block" 
+      color="primary">
+      <ion-spinner name="crescent"></ion-spinner>
+    </ion-button>
+  </div>
+</ion-footer>

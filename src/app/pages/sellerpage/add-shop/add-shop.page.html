@@ -1,0 +1,130 @@
+<ion-content content="full">
+    <ion-header>
+        <ion-toolbar color="primary">
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="/sellerpage"></ion-back-button>
+            </ion-buttons>
+            <ion-title>Create Shop</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+
+        <form #f1="ngForm" (ngSubmit)="onSubmit(f1)">
+            <ion-list lines="none">
+                <ion-list-header>
+                    <ion-label>Owner Details</ion-label>
+                </ion-list-header>
+                <ion-item color="light" class="ion-margin-bottom">
+                    <ion-icon name="person" slot="start" color="primary"></ion-icon>
+                    <ion-input type="text" name="name" ngModel #name="ngModel" placeholder="Name" required>
+                    </ion-input>
+                </ion-item>
+                <ion-text color="danger" *ngIf="!name.valid && name.touched">
+                    <p class="errorMsg">*Please enter your name</p>
+                </ion-text>
+
+                <ion-item color="light" class="ion-margin-bottom">
+                    <ion-icon name="mail" slot="start" color="primary"></ion-icon>
+                    <ion-input [disabled]="true" type="email" name="email" [(ngModel)]="email" #emailCtrl="ngModel" placeholder="Email" required>
+                    </ion-input>
+                </ion-item>
+                <ion-text color="danger" *ngIf="!emailCtrl.valid && emailCtrl.touched">
+                    <p class="errorMsg">*Please enter a valid email address</p>
+                </ion-text>
+
+                <ion-item color="light" class="ion-margin-bottom">
+                    <ion-icon name="call" slot="start" color="primary"></ion-icon>
+                    <ion-input type="tel" name="phone" ngModel #phone="ngModel" placeholder="Phone" required minlength="11" maxlength="11">
+                    </ion-input>
+                </ion-item>
+                <ion-text color="danger" *ngIf="!phone.valid && phone.touched">
+                    <p class="errorMsg">*Please enter a valid phone number</p>
+                </ion-text>
+
+                <!-- <ion-item color="light" class="ion-margin-bottom">
+          <ion-icon name="key" slot="start" color="primary"></ion-icon> 
+          <ion-input
+            type="password"
+            name="password"
+            ngModel
+            #passwordCtrl="ngModel"
+            placeholder="Password"
+            required
+            minlength="8">
+          </ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="!passwordCtrl.valid && passwordCtrl.touched" class="ion-text-center">
+          <p class="errorMsg">*Password must be of minimum 8 characters long.</p>
+        </ion-text> -->
+            </ion-list>
+
+            <ion-list lines="none">
+                <ion-list-header>
+                    <ion-label>Shop Details</ion-label>
+                </ion-list-header>
+                <ion-item color="light" class="ion-margin-bottom">
+                    <ion-icon name="shirt" slot="start" color="primary"></ion-icon>
+                    <ion-input type="text" name="shop_name" ngModel #shop_name="ngModel" placeholder="Shop Name" required>
+                    </ion-input>
+                </ion-item>
+                <ion-text color="danger" *ngIf="!shop_name.valid && shop_name.touched">
+                    <p class="errorMsg">*Please enter your Shop name</p>
+                </ion-text>
+
+                <ion-item color="light" class="ion-margin-bottom">
+                    <ion-textarea type="text" name="description" ngModel #description="ngModel" placeholder="Shop Description">
+                    </ion-textarea>
+                </ion-item>
+
+
+                <ion-item color="light" class="ion-margin-bottom">
+                    <ion-icon name="home" slot="start" color="primary"></ion-icon>
+                    <ion-input type="text" name="pickup_address" ngModel #pickup_address="ngModel" placeholder="Pickup Address" required>
+                    </ion-input>
+                </ion-item>
+                <ion-text color="danger" *ngIf="!pickup_address.valid && pickup_address.touched">
+                    <p class="errorMsg">*Please enter your pickup address</p>
+                </ion-text>
+
+
+                <!-- <ion-item>
+          <ion-input name="category" [(ngModel)]="category" placeholder="Enter New Category" type="text"></ion-input>
+          <ion-toggle mode="md" color="primary" name="shopCtg" [(ngModel)]="shopCtg"></ion-toggle>
+        </ion-item>
+  
+        <ion-button type="button" size="small" (click)="addCategory()" color="primary">ADD</ion-button>
+        <ion-button type="button" size="small" (click)="clearCategory()" color="tertiary">CLEAR</ion-button>
+        <p *ngIf="categories?.length > 0">Categories: {{getArrayAsString(categories)}}</p>      
+        <p *ngIf="shopcategory?.length > 0">Shop Category: {{getArrayAsString(shopcategory)}}</p> -->
+
+                <div class="itemImage" *ngIf="!image || image == ''" (click)="changeImage()">
+                    <ion-icon name="cloud-upload-outline" color="primary"></ion-icon>
+                    <p>Upload Shop Image here</p>
+                </div>
+
+                <input type="file" accept="image/*" #filePicker (change)="onFileChosen($event)">
+
+                <div class="itemImage imageDiv" *ngIf="image && image != ''" (click)="changeImage()">
+                    <ion-img [src]="image"></ion-img>
+                </div>
+
+
+            </ion-list>
+
+            <ion-button *ngIf="!isLoading" [disabled]="!f1.valid" expand="block" shape="round" type="submit" color="primary">
+                Save
+            </ion-button>
+
+            <div class="ion-text-center" *ngIf="isLoading">
+                <ion-button shape="round" color="primary" [disabled]="!f1.valid">
+                    <ion-spinner name="circles"></ion-spinner>
+                </ion-button>
+            </div>
+
+        </form>
+
+    </ion-content>
+
+
+</ion-content>

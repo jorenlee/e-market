@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary">Cart</ion-title>
+    <ion-buttons slot="start" *ngIf="urlCheck && urlCheck != 'tabs'">
+      <ion-back-button [defaultHref]="getPreviousUrl()"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <app-empty-screen *ngIf="!model?.shop"></app-empty-screen>
+
+  <ng-container *ngIf="model?.shop">
+    <ion-list lines="none" class="borderBottomSmall">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-img [src]="model?.shop?.cover ? model.shop.cover : ''"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <ion-text><h4>{{model?.shop?.shop_name}}</h4></ion-text>
+          <!-- <ion-note>{{model?.shop?.description}}</ion-note> -->
+        </ion-label>
+      </ion-item>
+      <app-cart-item 
+        *ngFor="let item of model?.items; let i = index"
+        [item]="item"
+        [index]="i"
+        (add)="quantityPlus($event)"
+        (minus)="quantityMinus($event)">
+      </app-cart-item>
+    </ion-list>
+  
+    <ion-item lines="none" class="borderBottom">
+      <ion-icon slot="start" name="list-outline"></ion-icon>
+      <ion-input type="text" placeholder="Any instructions? We will try our best" [(ngModel)]="instruction"></ion-input>
+    </ion-item>
+  
+    <ion-list class="borderBottom">
+      <ion-list-header>
+        <ion-label color="primary">Bill Details</ion-label>
+      </ion-list-header>
+      <ion-item lines="none">
+        <ion-label color="dark">Item Total</ion-label>
+        <ion-text slot="end" color="dark">₱{{model?.totalPrice | number: '0.2-2'}}</ion-text>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label color="dark">Shipping fee</ion-label>
+        <ion-text slot="end" color="dark">₱{{model?.deliveryCharge | number: '0.2-2'}}</ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="dark">To Pay</ion-label>
+        <ion-text slot="end" color="dark"><h5>₱{{model?.grandTotal | number: '0.2-2'}}</h5></ion-text>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+</ion-content>
+
+<ion-footer *ngIf="model?.shop">
+  <ion-toolbar>
+    <ion-row *ngIf="!location?.id">
+      <ion-col size="12">
+        <ion-button expand="block" color="tertiary" (click)="changeAddress()">
+          MANAGE ADDRESS
+        </ion-button>
+      </ion-col>
+    </ion-row>    
+    <ion-item lines="none" *ngIf="location?.id">
+      <ion-button slot="end" size="small" fill=clear (click)="changeAddress()">CHANGE</ion-button>
+      <ion-icon slot="start" name="home-outline"></ion-icon>
+      <ion-label>
+        <h5>Deliver to {{location?.title}}</h5>
+        <ion-text color="medium"><p>{{location?.house}}</p></ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-row *ngIf="location?.id">
+      <ion-col size="12" class="ion-no-padding"(click)="scrollToBottom()">
+        <ion-item  class="ion-no-padding">
+          <ion-label>
+            <h6>₱{{model?.grandTotal | number: '0.2-2'}}</h6>
+            <ion-text color="tertiary">
+              GRAND TOTAL
+              
+            </ion-text>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <!-- <ion-col size="12" class="ion-text-center colStyle" (click)="makePayment()">
+        <ion-button color="white" fill="clear">MAKE PAYMENT</ion-button> -->
+          <ion-col size="12">
+          <ion-button color="white" fill="clear"
+          (click)="makePayment()"
+          expand="block" color="light"
+          class="ion-text-center colStyle"
+          >MAKE PAYMENT</ion-button>
+        </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
